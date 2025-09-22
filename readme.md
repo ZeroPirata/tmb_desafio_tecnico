@@ -2,19 +2,6 @@
 
 Sistema completo de gestão de pedidos com processamento assíncrono, desenvolvido com .NET, React e mensageria em tempo real.
 
-## 📋 Índice
-
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Arquitetura](#arquitetura)
-- [Pré-requisitos](#pré-requisitos)
-- [Instalação e Execução](#instalação-e-execução)
-- [Configuração](#configuração)
-- [Endpoints da API](#endpoints-da-api)
-- [Funcionalidades](#funcionalidades)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Contribuição](#contribuição)
-
 ## 📖 Sobre o Projeto
 
 Este sistema permite criar, listar e visualizar pedidos com processamento assíncrono. Quando um pedido é criado, uma mensagem é enviada para o Azure Service Bus, onde um worker processa e atualiza o status do pedido em tempo real.
@@ -141,7 +128,7 @@ docker compose up --build -d
 
 ### 6. Verificar Saúde dos Serviços
 
-Acesse: http://localhost:8081 (Health Checks Dashboard)
+Acesse: http://localhost:8081/healthchecks-ui#/healthchecks (Health Checks Dashboard)
 
 ## ⚙️ Configuração
 
@@ -185,23 +172,7 @@ REACT_PORT=3000
 | `GET` | `/api/orders` | Listar todos os pedidos |
 | `GET` | `/api/orders/{id}` | Obter detalhes de um pedido |
 
-### Health Checks
 
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| `GET` | `/health` | Status geral da aplicação |
-| `GET` | `/health/ready` | Verificar se está pronto |
-| `GET` | `/health/live` | Verificar se está funcionando |
-
-### Exemplo de Payload
-
-```json
-{
-  "cliente": "João Silva",
-  "produto": "Notebook Dell",
-  "valor": 2500.00
-}
-```
 
 ## ✨ Funcionalidades
 
@@ -223,27 +194,6 @@ REACT_PORT=3000
 - **Health Monitoring** → Monitoramento contínuo
 - **Docker Compose** → Ambiente completo containerizado
 
-## 📁 Estrutura do Projeto
-
-```
-├── src/
-│   ├── TmbApi/              # API .NET Core
-│   │   ├── Controllers/     # Controllers da API
-│   │   ├── Models/          # Modelos de dados
-│   │   ├── Services/        # Serviços de negócio
-│   │   ├── Workers/         # Background workers
-│   │   └── Hubs/           # SignalR hubs
-│   └── frontend/           # Aplicação React
-│       ├── src/
-│       │   ├── components/ # Componentes React
-│       │   ├── services/   # Serviços API
-│       │   └── hooks/      # Custom hooks
-│       └── public/
-├── docker-compose.yml      # Configuração dos containers
-├── .env.example           # Exemplo de variáveis
-├── Makefile              # Comandos auxiliares
-└── README.md            # Este arquivo
-```
 
 ## 🌍 URLs de Acesso
 
@@ -252,35 +202,8 @@ REACT_PORT=3000
 | **Frontend** | http://localhost:3000 | Interface do usuário |
 | **API** | http://localhost:8080 | Backend .NET |
 | **Health Checks** | http://localhost:8081 | Dashboard de saúde |
-| **Swagger** | http://localhost:8080/swagger | Documentação da API |
 
-## 🧪 Executar Testes
 
-```bash
-# Testes unitários
-dotnet test src/TmbApi.Tests/
-
-# Testes de integração
-dotnet test src/TmbApi.IntegrationTests/
-```
-
-## 📊 Monitoramento
-
-O sistema inclui health checks para:
-- 🔍 **API** → Verificação de funcionamento
-- 🗄️ **PostgreSQL** → Conectividade do banco
-- 📨 **RabbitMQ** → Status da fila de mensagens
-- 🔄 **Worker** → Processamento de background
-
-Acesse o dashboard em: http://localhost:8081
-
-## 🤝 Contribuição
-
-1. Fork do projeto
-2. Crie sua feature branch (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Abra um Pull Request
 
 ## 📝 Notas de Desenvolvimento
 
@@ -288,7 +211,6 @@ Acesse o dashboard em: http://localhost:8081
 - SignalR fornece feedback visual imediato das mudanças de status
 - Todas as operações de mensageria são idempotentes
 - Health checks são executados a cada 30 segundos
+- A troca de `Azure bus service` para `RabbitMQ` consiste na necessidade de testes locais de forma mais consistente e sem geramento de faturas dentro da cloud da AZURE
 
 ---
-
-**Desenvolvido com ❤️ para o Desafio Técnico TMB**
