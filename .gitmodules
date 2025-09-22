@@ -1,0 +1,6 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/ZeroPirata/tmb_dotnet_backend
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/ZeroPirata/tmb_react_frontend
